@@ -46,8 +46,8 @@ class StackCalculator:
             else:
                 self._stack.append(item)
         except ValueError:
-            if callable(getattr(self, "_operator_" + str(item))):
-                getattr(self, "_operator_" + str(item))()
+            if callable(getattr(self, "operator_" + str(item))):
+                getattr(self, "operator_" + str(item))()
 
     def pop(self):
         if len(self._stack) > 0:
@@ -87,106 +87,106 @@ class StackCalculator:
                 sys.stderr.write("bye\n")
                 sys.exit(0)
 
-    def _operator_bye(self):
+    def operator_bye(self):
         """exit"""
         sys.exit(0)
 
-    def _operator_examine(self):
+    def operator_examine(self):
         """print the stack for examination"""
         print(self._stack)
 
-    def _operator_peek(self):
+    def operator_peek(self):
         """print the top item on the stack"""
         print(self.peek())
 
-    def _operator_pop(self):
+    def operator_pop(self):
         """delete the top item from the stack"""
         print(self.pop())
 
-    def _operator_add(self):
+    def operator_add(self):
         """add the top two items on the stack and push the result"""
         self.push(self.pop() + self.pop())
 
-    def _operator_mul(self):
+    def operator_mul(self):
         """multiply the top two items on the stack and push the result"""
         self.push(self.pop() * self.pop())
 
-    def _operator_neg(self):
+    def operator_neg(self):
         """negate the top item on the stack"""
         self.push(-self.pop())
 
-    def _operator_flip(self):
+    def operator_flip(self):
         """flip the position of the top two items on the stack"""
         top = self.pop()
         self.push(self.pop())
         self.push(top)
 
-    def _operator_abs(self):
+    def operator_abs(self):
         """push abs of top of stack"""
         self.push(abs(self.pop()))
 
-    def _operator_invert(self):
+    def operator_invert(self):
         """push inverse (1/n) of top of stack"""
         self.push(1/self.pop())
 
-    def _operator_inv(self):
+    def operator_inv(self):
         """alias for invert"""
-        self._operator_invert()
+        self.operator_invert()
 
-    def _operator_pow(self):
+    def operator_pow(self):
         """raise the 2nd to top item on the stack to the power of the
            top item on the stack and push the result"""
         to = self.pop()
         self.push(self.pop()**to)
 
-    def _operator_avg(self):
+    def operator_avg(self):
         """compute the average of the top two items on the stack and
            push the result"""
         self.push((self.pop()+self.pop())/2)
 
-    def _operator_peeksum(self):
+    def operator_peeksum(self):
         """sum everything on the stack without popping and push the result"""
         self.push(sum(self._stack))
 
-    def _operator_empty(self):
+    def operator_empty(self):
         """empty the stack"""
         self._stack = []
 
-    def _operator_pi(self):
+    def operator_pi(self):
         """pushes pi to the stack"""
         self.push(math.pi)
 
-    def _operator_e(self):
+    def operator_e(self):
         """pushes e to the stack"""
         self.push(math.e)
 
-    def _operator_sin(self):
+    def operator_sin(self):
         """calculate the sin of the top item in radians and push it to the stack"""
         self.push(math.sin(self.peek()))
 
-    def _operator_cos(self):
+    def operator_cos(self):
         """calculate the cos of the top item in radians and push it to the stack"""
         self.push(math.cos(self.peek()))
 
-    def _operator_tan(self):
+    def operator_tan(self):
         """calculate the tan of the top item in radians and push it to the stack"""
         self.push(math.tan(self.peek()))
 
-    def _operator_torad(self):
+    def operator_torad(self):
         """convert the item on the top of the stack from a degrees value to radians"""
         self.push(math.radians(self.pop()))
 
-    def _operator_todeg(self):
+    def operator_todeg(self):
         """convert the item on the top of the stack from a radians value to degrees"""
         self.push(math.degrees(self.pop()))
 
-    def _operator_set(self):
+    def operator_set(self):
         """pop the var pointer on the second to top of the stack and set it to the
            value on the top of the stack"""
         value = self.pop()
         self.ptrpop().set(value)
 
-    def _operator_equal(self):
+    def operator_equal(self):
         """pop the top two items from the stack, and push True to the stack if they are
            equal, False otherwise"""
         self.push(self.pop() == self.pop())
